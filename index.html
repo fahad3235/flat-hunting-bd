@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flat Hunting BD - Compare Flats in Dhaka</title>
+<meta name="description" content="Compare flats in Dhaka side by side, score them honestly, and keep your visit notes in one place. Fully offline.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <h1 id="title" data-i18n="title">Flat Hunting BD</h1>
+    <p class="subtitle" data-i18n="subtitle">Compare flats in Dhaka side by side, score them honestly, and keep your visit notes in one place. Fully offline - your data never leaves your device.</p>
+    <button type="button" id="langBtn" class="btn lang">Bangla</button>
+  </div>
+</header>
+<nav class="tabs wrap" aria-label="Sections">
+  <button type="button" data-tab="flats" class="active" data-i18n="tab_flats">My Flats</button>
+  <button type="button" data-tab="compare" data-i18n="tab_compare">Compare</button>
+  <button type="button" data-tab="data" data-i18n="tab_data">Data &amp; Settings</button>
+</nav>
+<main class="wrap">
+
+  <!-- ============ FLATS ============ -->
+  <section class="tabpage" id="tab-flats">
+    <h2 id="formTitle" data-i18n="addTitle">Add a flat</h2>
+    <form id="flatForm" onsubmit="return false">
+      <div class="grid">
+        <div class="field">
+          <label for="areaInput" data-i18n="areaLabel">Area / neighbourhood</label>
+          <input id="areaInput" type="text" maxlength="60" data-i18n-ph="areaPh" placeholder="e.g. Mirpur 10">
+          <p class="hint" data-i18n="areaHint">Where the flat is - area, block or street.</p>
+          <p class="err" id="areaError" hidden></p>
+        </div>
+        <div class="field">
+          <label for="rentInput" data-i18n="rentLabel">Monthly rent (Tk)</label>
+          <input id="rentInput" type="text" inputmode="numeric" autocomplete="off">
+          <p class="hint" data-i18n="rentHint">The monthly rent the landlord asked for.</p>
+          <p class="err" id="rentError" hidden></p>
+        </div>
+        <div class="field">
+          <label for="bedroomsInput" data-i18n="bedroomsLabel">Bedrooms</label>
+          <input id="bedroomsInput" type="text" inputmode="numeric" value="2">
+          <p class="err" id="bedroomsError" hidden></p>
+        </div>
+        <div class="field">
+          <label for="bathsInput" data-i18n="bathsLabel">Bathrooms</label>
+          <input id="bathsInput" type="text" inputmode="numeric" value="1">
+          <p class="err" id="bathsError" hidden></p>
+        </div>
+        <div class="field">
+          <label for="sizeInput" data-i18n="sizeLabel">Size (sq ft)</label>
+          <input id="sizeInput" type="text" inputmode="numeric" autocomplete="off">
+          <p class="err" id="sizeError" hidden></p>
+        </div>
+        <div class="field">
+          <label for="floorInput" data-i18n="floorLabel">Floor (0 = ground)</label>
+          <input id="floorInput" type="text" inputmode="numeric" value="0">
+          <p class="err" id="floorError" hidden></p>
+        </div>
+        <div class="field">
+          <label for="advanceInput" data-i18n="advanceLabel">Advance (months of rent)</label>
+          <input id="advanceInput" type="text" inputmode="numeric" value="1">
+          <p class="hint" data-i18n="advanceHint">How many months' rent in advance, 0-6.</p>
+          <p class="err" id="advanceError" hidden></p>
+        </div>
+        <div class="field">
+          <label for="depositInput" data-i18n="depositLabel">Refundable deposit (Tk)</label>
+          <input id="depositInput" type="text" inputmode="numeric" value="0">
+          <p class="hint" data-i18n="depositHint">One-time refundable deposit, if any.</p>
+          <p class="err" id="depositError" hidden></p>
+        </div>
+        <div class="field">
+          <label for="distanceInput" data-i18n="distanceLabel">Distance to work / university (km)</label>
+          <input id="distanceInput" type="text" inputmode="decimal" value="0">
+          <p class="hint" data-i18n="distanceHint">How far you travel every day.</p>
+          <p class="err" id="distanceError" hidden></p>
+        </div>
+        <div class="field">
+          <label for="statusSelect" data-i18n="statusLabel">Status</label>
+          <select id="statusSelect">
+            <option value="to-visit" data-i18n="status_to-visit">To visit</option>
+            <option value="visited" data-i18n="status_visited">Visited</option>
+            <option value="shortlisted" data-i18n="status_shortlisted">Shortlisted</option>
+            <option value="rejected" data-i18n="status_rejected">Rejected</option>
+          </select>
+        </div>
+      </div>
+      <fieldset class="facilities">
+        <legend data-i18n="facilitiesLabel">Included / available</legend>
+        <label class="chk"><input type="checkbox" id="facGas"> <span data-i18n="fac_gas">Gas line</span></label>
+        <label class="chk"><input type="checkbox" id="facWater"> <span data-i18n="fac_water">Water supply</span></label>
+        <label class="chk"><input type="checkbox" id="facLift"> <span data-i18n="fac_lift">Lift</span></label>
+        <label class="chk"><input type="checkbox" id="facGenerator"> <span data-i18n="fac_generator">Generator</span></label>
+        <label class="chk"><input type="checkbox" id="facParking"> <span data-i18n="fac_parking">Parking</span></label>
+      </fieldset>
+      <div class="grid">
+        <div class="field">
+          <label for="landlordInput" data-i18n="landlordLabel">Landlord name</label>
+          <input id="landlordInput" type="text" maxlength="60" data-i18n-ph="landlordPh" placeholder="Optional">
+          <p class="err" id="landlordError" hidden></p>
+        </div>
+        <div class="field">
+          <label for="phoneInput" data-i18n="phoneLabel">Landlord phone</label>
+          <input id="phoneInput" type="tel" maxlength="15" data-i18n-ph="phonePh" placeholder="Optional, e.g. 01712-345678">
+          <p class="err" id="phoneError" hidden></p>
+        </div>
+      </div>
+      <div class="field">
+        <label for="notesInput" data-i18n="notesLabel">Notes</label>
+        <textarea id="notesInput" rows="2" maxlength="300" data-i18n-ph="notesPh" placeholder="Anything else - light, road, neighbours..."></textarea>
+        <p class="err" id="notesError" hidden></p>
+      </div>
+      <div class="actions">
+        <button type="button" id="saveFlatBtn" class="btn primary" data-i18n="saveFlat">Save flat</button>
+        <button type="button" id="cancelEditBtn" class="btn" data-i18n="cancelEdit" hidden>Cancel</button>
+      </div>
+      <p class="msg" id="formMsg" hidden></p>
+    </form>
+
+    <div id="flatListWrap">
+      <h2 data-i18n="listTitle">Your flats</h2>
+      <div class="filters">
+        <label><span data-i18n="filterLabel">Show:</span>
+          <select id="filterSelect">
+            <option value="all" data-i18n="filterAll">All</option>
+            <option value="to-visit" data-i18n="status_to-visit">To visit</option>
+            <option value="visited" data-i18n="status_visited">Visited</option>
+            <option value="shortlisted" data-i18n="status_shortlisted">Shortlisted</option>
+            <option value="rejected" data-i18n="status_rejected">Rejected</option>
+          </select>
+        </label>
+        <label><span data-i18n="searchLabel">Search area or landlord</span>
+          <input id="searchInput" type="search" data-i18n-ph="searchPh" placeholder="Type to filter...">
+        </label>
+      </div>
+      <p class="empty" id="listEmpty" data-i18n="listEmpty">No flats yet. Add the first flat you are considering above.</p>
+      <ul id="flatList" class="flat-list"></ul>
+    </div>
+
+    <div id="flatDetail" hidden>
+      <h2 data-i18n="detailTitle">Flat details</h2>
+      <div id="detailBody"></div>
+      <h3 data-i18n="checklistTitle">Visit checklist</h3>
+      <p class="hint" data-i18n="checklistHint">Tick what you verified on your visit.</p>
+      <div id="checklistBox" class="checklist"></div>
+      <p><span id="checklistPct">0%</span></p>
+      <div class="actions">
+        <button type="button" id="detailEditBtn" class="btn" data-i18n="editBtn">Edit</button>
+        <button type="button" id="detailDeleteBtn" class="btn danger" data-i18n="deleteBtn">Delete</button>
+        <button type="button" id="backBtn" class="btn" data-i18n="backBtn">Back to list</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ COMPARE ============ -->
+  <section class="tabpage" id="tab-compare" hidden>
+    <h2 data-i18n="compareTitle">Compare flats</h2>
+    <div class="field budget">
+      <label for="budgetInput" data-i18n="budgetLabel">My monthly budget (Tk)</label>
+      <input id="budgetInput" type="text" inputmode="numeric">
+      <p class="hint" data-i18n="budgetHint">Flats at or under budget earn full rent points.</p>
+      <p class="err" id="budgetError" hidden></p>
+      <div class="actions">
+        <button type="button" id="saveBudgetBtn" class="btn primary" data-i18n="saveBudget">Save budget</button>
+      </div>
+      <p class="msg" id="budgetMsg" hidden></p>
+    </div>
+    <p class="empty" id="compareEmpty" data-i18n="compareEmpty">Add at least one flat to compare.</p>
+    <div class="table-wrap">
+      <table id="compareTable">
+        <thead>
+          <tr>
+            <th data-i18n="rankLabel">Rank</th>
+            <th data-i18n="flatLabel">Flat</th>
+            <th data-i18n="pointsLabel">Points</th>
+            <th data-i18n="moveInLabel">Move-in cost</th>
+          </tr>
+        </thead>
+        <tbody id="compareBody"></tbody>
+      </table>
+    </div>
+    <h3 data-i18n="howTitle">How the score works (out of 100)</h3>
+    <ul class="how">
+      <li data-i18n="how_rent">Rent - 40 points. Full points at or under your budget, falling to 0 at double your budget.</li>
+      <li data-i18n="how_size">Size - 20 points. Full points at 1,200 sq ft or more.</li>
+      <li data-i18n="how_rooms">Bedrooms - 15 points. 1 bed: 5, 2 beds: 10, 3 beds: 13, 4+ beds: 15.</li>
+      <li data-i18n="how_fac">Facilities - 15 points. 3 points each for gas, water, lift, generator and parking.</li>
+      <li data-i18n="how_dist">Distance - 10 points. Full points at 0 km, falling to 0 at 10 km.</li>
+    </ul>
+    <p class="hint" data-i18n="how_note">The score only ranks the flats you entered, using your own numbers. It is not a valuation - always visit before you decide.</p>
+  </section>
+
+  <!-- ============ DATA ============ -->
+  <section class="tabpage" id="tab-data" hidden>
+    <h2 data-i18n="dataTitle">Your data</h2>
+    <h3 data-i18n="exportTitle">Export</h3>
+    <p class="hint" data-i18n="exportHint">Copy your data as JSON, or download it. Keep the file somewhere safe.</p>
+    <textarea id="exportText" rows="6" readonly></textarea>
+    <div class="actions">
+      <button type="button" id="copyBtn" class="btn" data-i18n="copyBtn">Copy JSON</button>
+      <button type="button" id="downloadBtn" class="btn" data-i18n="downloadBtn">Download JSON</button>
+    </div>
+    <p class="msg" id="copiedMsg" data-i18n="copiedMsg" hidden>Copied to clipboard.</p>
+    <h3 data-i18n="importTitle">Import</h3>
+    <p class="hint" data-i18n="importHint">Paste a JSON file exported from this app.</p>
+    <textarea id="importText" rows="6"></textarea>
+    <div class="actions">
+      <button type="button" id="importBtn" class="btn primary" data-i18n="importBtn">Import data</button>
+    </div>
+    <p class="msg" id="importOk" data-i18n="importOk" hidden>Import complete.</p>
+    <p class="err" id="importFail" data-i18n="importFail" hidden>That file is not valid flat-hunting-bd data.</p>
+    <h3 data-i18n="eraseTitle">Erase everything</h3>
+    <p class="hint" data-i18n="eraseHint">Type DELETE in the box to erase all your flats and budget. This cannot be undone.</p>
+    <input id="eraseInput" type="text" autocomplete="off">
+    <div class="actions">
+      <button type="button" id="eraseBtn" class="btn danger" data-i18n="eraseBtn">Erase all data</button>
+    </div>
+    <p class="err" id="eraseWrong" data-i18n="eraseWrong" hidden>Type DELETE exactly to erase.</p>
+    <p class="msg" id="erasedMsg" data-i18n="erasedMsg" hidden>All data erased.</p>
+  </section>
+</main>
+<footer class="wrap">
+  <p id="footerText" data-i18n="footer">A personal flat-hunting helper, not a broker and not a valuation. Rents, deposits and facilities are whatever you entered - always verify them with the landlord and visit the flat before paying anything.</p>
+</footer>
+<script src="js/logic.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
